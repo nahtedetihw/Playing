@@ -23,7 +23,7 @@ void SendNotification(CFNotificationCenterRef center, void * observer, CFStringR
 			} else {
 				return;
 			}
-		} else if ([songTitle isEqualToString:@""] || [songArtist isEqualToString:@""]) {
+		} else if ([songTitle isEqualToString:@""] || [songArtist isEqualToString:@""] || [songAlbum isEqualToString:@""]) {
 			if([(__bridge NSString *)name isEqualToString:@"dev.hyper.playing/TestNotification"]) {
 				songTitle = @"Title";
 				songArtist = @"Artist";
@@ -47,7 +47,7 @@ void SendNotification(CFNotificationCenterRef center, void * observer, CFStringR
 
             void *handle = dlopen("/usr/lib/libnotifications.dylib", RTLD_LAZY);
 			if (handle != NULL) {    
-				NSString *msg = [NSString stringWithFormat:@"%@ by %@", songTitle, songArtist, songAlbum];         
+				NSString *msg = [NSString stringWithFormat:@"%@ by %@ in %@", songTitle, songArtist, songAlbum];
 				if(![customText isEqualToString:@""]) {
 					msg = [customText stringByReplacingOccurrencesOfString:@"@artist" withString:songArtist];
 					msg = [msg stringByReplacingOccurrencesOfString:@"@title" withString:songTitle];
@@ -120,3 +120,4 @@ static void UpdatePlayingPreferences() {
 	CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)UpdatePlayingPreferences, CFSTR("dev.hyper.playing/ReloadPrefs"), NULL, kNilOptions);
 	CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)SendNotification, CFSTR("dev.hyper.playing/TestNotification"), NULL, kNilOptions);
 }
+
