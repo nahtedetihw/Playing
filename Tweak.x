@@ -52,6 +52,7 @@ void SendNotification(CFNotificationCenterRef center, void * observer, CFStringR
 					msg = [customText stringByReplacingOccurrencesOfString:@"@artist" withString:songArtist];
 					msg = [msg stringByReplacingOccurrencesOfString:@"@title" withString:songTitle];
 					msg = [msg stringByReplacingOccurrencesOfString:@"@album" withString:songAlbum];
+                    msg = [msg stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"];
 				}
 				#pragma clang diagnostic push
 				#pragma clang diagnostic ignored "-Wnonnull"
