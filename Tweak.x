@@ -13,11 +13,13 @@ void SendNotification(CFNotificationCenterRef center, void * observer, CFStringR
         NSDictionary *dict = (__bridge NSDictionary *)information;
 		NSString *songTitle = [dict objectForKey:(__bridge NSString *)kMRMediaRemoteNowPlayingInfoTitle];
         NSString *songArtist = [dict objectForKey:(__bridge NSString *)kMRMediaRemoteNowPlayingInfoArtist];
+	NSString *songAlbum = [dict objectForKey:(__bridge NSString *)kMRMediaRemoteNowPlayingInfoAlbum];
 
-		if(!songTitle || !songArtist) {
+		if(!songTitle || !songArtist || !songAlbum) {
 			if([(__bridge NSString *)name isEqualToString:@"dev.hyper.playing/TestNotification"]) {
 				songTitle = @"Title";
 				songArtist = @"Artist";
+				songAlbum = @"Album";
 			} else {
 				return;
 			}
@@ -25,12 +27,13 @@ void SendNotification(CFNotificationCenterRef center, void * observer, CFStringR
 			if([(__bridge NSString *)name isEqualToString:@"dev.hyper.playing/TestNotification"]) {
 				songTitle = @"Title";
 				songArtist = @"Artist";
+				songAlbum = @"Album";
 			} else {
 				return;
 			}
 		}
 
-        if (songTitle && songArtist) {
+        if (songTitle && songArtist && songAlbum) {
 			if(![songTitle isEqualToString:previousTitle] || [(__bridge NSString *)name isEqualToString:@"dev.hyper.playing/TestNotification"]) {
 				if(![previousTitle isEqualToString:@""]) {
 					dispatch_sync(__BBServerQueue, ^{
