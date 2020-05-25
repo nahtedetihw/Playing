@@ -47,10 +47,11 @@ void SendNotification(CFNotificationCenterRef center, void * observer, CFStringR
 
             void *handle = dlopen("/usr/lib/libnotifications.dylib", RTLD_LAZY);
 			if (handle != NULL) {    
-				NSString *msg = [NSString stringWithFormat:@"%@ by %@", songTitle, songArtist];         
+				NSString *msg = [NSString stringWithFormat:@"%@ by %@", songTitle, songArtist, songAlbum];         
 				if(![customText isEqualToString:@""]) {
-					msg = [customText stringByReplacingOccurrencesOfString:@"@a" withString:songArtist];
-					msg = [msg stringByReplacingOccurrencesOfString:@"@t" withString:songTitle];
+					msg = [customText stringByReplacingOccurrencesOfString:@"@artist" withString:songArtist];
+					msg = [msg stringByReplacingOccurrencesOfString:@"@title" withString:songTitle];
+					msg = [msg stringByReplacingOccurrencesOfString:@"@album" withString:songAlbum];
 				}
 				#pragma clang diagnostic push
 				#pragma clang diagnostic ignored "-Wnonnull"
